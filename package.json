@@ -1,0 +1,13 @@
+{
+  "name": "weatherapp",
+  "version": "1.0.0",
+  "description": "WDD final Project",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Felix Wilson Gbedemah <afrogbede09@gmail.com> ",
+  "dependencies": {
+    "parcel": "^2.9.3"
+  }
+}
