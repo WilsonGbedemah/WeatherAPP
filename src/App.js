@@ -3,7 +3,7 @@ import { initRouter } from './router';
 
 function Header(mainDiv) {
   const appTitle = createElement('h1', {
-    textContent: 'My Cool Project',
+    textContent: 'WeatherNow',
     className: 'heading',
   });
 
@@ -28,7 +28,7 @@ function Header(mainDiv) {
 
 function Footer() {
   const copyright = createElement('span', {
-    textContent: `Copyright © ${new Date().getFullYear()}`,
+    textContent: `Copyright © ${new Date().getFullYear()} | WeatherAPP` ,
   });
 
   return createElement('footer', {}, [copyright]);
