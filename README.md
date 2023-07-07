@@ -1,2 +1,2 @@
-# WeatherAPP
+# WeatherNOW
 WDD final Project
