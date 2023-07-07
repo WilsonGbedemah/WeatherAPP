@@ -1,9 +1,18 @@
 import { createElement } from './utils';
 import { initRouter } from './router';
 
+
 function Header(mainDiv) {
+  //create logo element
+  const logoImg = createElement('img', {
+    src: 'src/images/logo.png',
+    alt: 'WeatherNow logo',
+    className: 'logo',
+  });
+
+
   const appTitle = createElement('h1', {
-    textContent: 'WeatherNow',
+    textContent: 'WeatherNOW',
     className: 'heading',
   });
 
@@ -20,15 +29,18 @@ function Header(mainDiv) {
     href: '/#/page3',
     textContent: 'Page 3',
   });
+  
+  
 
   const nav = createElement('nav', {}, [page1, page2, page3]);
 
-  return createElement('header', {}, [appTitle, nav]);
+  return createElement('header', {}, [logoImg, appTitle, nav]);
 }
+
 
 function Footer() {
   const copyright = createElement('span', {
-    textContent: `Copyright © ${new Date().getFullYear()} | WeatherAPP` ,
+    textContent: `Copyright © ${new Date().getFullYear()} | WeatherNOW` ,
   });
 
   return createElement('footer', {}, [copyright]);
