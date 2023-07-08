@@ -1,8 +1,8 @@
 import { createElement } from './utils';
 
-import Page1 from './Page1';
-import Counter from './Counter';
-import Page3 from './Page3';
+import Page1 from './home';
+import Page2 from './weather';
+import Page3 from './info';
 
 export function initRouter(mainView) {
   function updateView(newView) {
@@ -17,7 +17,7 @@ export function initRouter(mainView) {
         break;
 
       case '#/page2':
-        updateView(Counter());
+        updateView(Page2());
         break;
 
       case '#/page3':
