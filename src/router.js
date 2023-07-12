@@ -7,7 +7,9 @@ import Page3 from './info';
 export function initRouter(mainView) {
   function updateView(newView) {
     mainView.innerHTML = '';
-    mainView.appendChild(newView);
+    if (newView instanceof Node) { // Check if newView is a valid DOM element
+      mainView.appendChild(newView);
+    }
   }
 
   function hashToRoute(hash) {

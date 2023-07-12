@@ -24,19 +24,32 @@ header {
     font-family: var(--font-headline);
     color: var(--light-grey);
   }
-  @keyframes infinite {
-    from {
-      transform: translateX(90px);
+  @keyframes upAnddown {
+    0% {
+      transform: translateY(0);
     }
-  
-    to {
-      transform: translateX(-10px);
+    20% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-6px);
+    }
+    50% {
+      transform: translateY(0);
+    }
+    60% {
+      transform: translateY(-3px);
+    }
+    80% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(0);
     }
   }
   .logo {
-    width: 20%;
-    height: 60px;
-    animation: infinite 4s ease-in-out infinite alternate;
+    width: 170px;
+    height: 130px;
   }
 
   nav {
@@ -112,7 +125,7 @@ header {
     text-align: center;
     max-width: 600px;
     border-radius: 5px;
-    padding: 20px;
+    padding: 30px;
     display: block;
     font-family: var(--font-body);
   }
@@ -126,12 +139,12 @@ header {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
-    max-width: 500px;
+    max-width: 600px;
     border-radius: 5px;
-    padding: 20px;
+    padding: 30px;
     display: block;
   }
-  .button{
+  .call a{
     background-color:var(--secondary-color);
     color: var(--tertiary-color);
     border: none;
@@ -145,9 +158,10 @@ header {
     transition: background-color 0.3s ease;
   }
   
-  .button:hover{
+  .call a:hover{
     background-color: var(--hover-color);
     color: var(--light-grey);
+    animation: upAnddown 1s ease-in;
   }
 
   /**Weather Styling**/
@@ -192,6 +206,7 @@ header {
   
   form input[type="submit"]:hover {
     background-color: var(--hover-color);
+    animation: upAnddown 1s ease-in;
   }
   
   .icon img {
@@ -255,7 +270,7 @@ header {
     max-width: 900px;
   }
   .call{
-    max-width: 800px;
+    max-width: 900px;
   }
 .head{
   font-size: 35px;

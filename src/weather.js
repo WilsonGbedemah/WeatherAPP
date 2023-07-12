@@ -6,6 +6,7 @@ function Page2() {
     createElement('form', {}, [
       createElement('input', { type: 'text', id: 'city-input', placeholder: 'Enter city' }),
       createElement('input', { type: 'submit', value: 'Get Weather' }),
+      createElement('ul', { id: 'suggestion-list' }), // Add this line to include the suggestion list
     ]),
     createElement('div', { id: 'weather-data' }, [
       createElement('div', { className: 'icon' }),
@@ -14,20 +15,63 @@ function Page2() {
       createElement('div', { className: 'details' }),
     ]),
     createElement('div', { id: 'forecast' }),
+    createElement('div', { id: 'favorites' }),
   ]);
-
   document.body.appendChild(container);
 
   const apikey = "46f80a02ecae410460d59960ded6e1c6";
   const weatherDataEl = document.getElementById("weather-data");
   const cityInputEl = document.getElementById("city-input");
   const formEl = document.querySelector("form");
+  const favoritesEl = document.getElementById("favorites");
+
+  // Autocomplete feature using location API or database
+  cityInputEl.addEventListener("input", async (event) => {
+    const userInput = event.target.value;
+    const suggestions = await fetchLocationSuggestions(userInput);
+    displayLocationSuggestions(suggestions);
+  });
 
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
     const cityValue = cityInputEl.value;
     getWeatherData(cityValue);
   });
+
+  async function fetchLocationSuggestions(userInput) {
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=10&appid=${apikey}`
+      );
+  
+      if (!response.ok) {
+        throw new Error("Failed to fetch location suggestions");
+      }
+  
+      const data = await response.json();
+  
+      // Extract the location names from the response data
+      const suggestions = data.map((location) => location.name);
+  
+      return suggestions;
+    } catch (error) {
+      console.error("Error fetching location suggestions:", error);
+      return []; // Return an empty array if an error occurs
+    }
+  }
+  
+
+  function displayLocationSuggestions(suggestions) {
+    // Clear previous suggestions
+    const suggestionList = document.getElementById("suggestion-list");
+    suggestionList.innerHTML = "";
+
+    // Display suggestions in a dropdown menu
+    suggestions.forEach((suggestion) => {
+      const suggestionItem = createElement('li', { textContent: suggestion });
+      suggestionList.appendChild(suggestionItem);
+    });
+  }
 
   async function getWeatherData(cityValue) {
     try {
@@ -58,6 +102,9 @@ function Page2() {
         .join("");
 
       getWeatherForecast(cityValue);
+
+      // Save the searched location to favorites
+      saveToFavorites(cityValue);
     } catch (error) {
       weatherDataEl.querySelector(".icon").innerHTML = "";
       weatherDataEl.querySelector(".temperature").textContent = "";
@@ -102,6 +149,33 @@ function Page2() {
       console.error("Error retrieving weather forecast:", error);
     }
   }
+
+  // Favorites feature
+  let favorites = [];
+
+  function saveToFavorites(cityValue) {
+    // Save the searched location to favorites
+    favorites.push(cityValue);
+    displayFavorites();
+  }
+
+  function displayFavorites() {
+    favoritesEl.innerHTML = ""; // Clear previous favorites
+
+    favorites.forEach((favorite) => {
+      const favoriteItem = createElement('div', { className: 'favorite-item', textContent: favorite });
+      favoritesEl.appendChild(favoriteItem);
+    });
+  }
+
+  displayFavorites();
+
+  const footer = createElement('footer',{ className: 'weather-footer'},[
+  container,
+  ]);
+  return createElement('div', { className: 'counter' }, [
+    container
+  ]);
 }
 
 export default Page2;

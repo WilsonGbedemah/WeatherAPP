@@ -5,7 +5,7 @@ import { initRouter } from './router';
 function Header(mainDiv) {
   //create logo element
   const logoImg = createElement('img', {
-    src: 'src/images/logo.png',
+    src: require('./images/logo.png'),
     alt: 'WeatherNow logo',
     className: 'logo',
   });
