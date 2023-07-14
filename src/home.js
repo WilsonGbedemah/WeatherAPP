@@ -43,7 +43,7 @@ function Page1() {
 
   const callToAction = createElement('div', { className: 'call' }, [
     createElement('p', {
-      textContent: 'For more information on the weather conditions in your city, just follow me by clicking 👇d ',
+      textContent: 'For more information on the weather conditions in your city, just follow me by clicking 👇 now.',
     }),
     createElement('a', {
       href: '/#/page2',
@@ -53,7 +53,39 @@ function Page1() {
 
   const introAndCallToAction = createElement('section', {}, [intro, callToAction]);
 
-  return createElement('div', {}, [heroImage, subTitle, introAndCallToAction]);
+  const darkModeToggle = createElement('div', { className: 'toggle' });
+
+  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+
+  function setDarkMode(state) {
+    isDarkMode = state;
+
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.classList.add('slide');
+    } else {
+      document.body.classList.remove('dark-mode');
+      darkModeToggle.classList.remove('slide');
+    }
+
+    localStorage.setItem('isDarkMode', isDarkMode.toString());
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    setDarkMode(!isDarkMode);
+  });
+
+  setDarkMode(isDarkMode);
+
+  const appContainer = createElement('div', { className: 'app-container' }, [
+    heroImage,
+    subTitle,
+    introAndCallToAction,
+    darkModeToggle,
+  ]);
+  
+
+  return appContainer;
 }
 
 export default Page1;

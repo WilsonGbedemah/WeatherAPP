@@ -25,6 +25,32 @@ function Page2() {
   const formEl = document.querySelector("form");
   const favoritesEl = document.getElementById("favorites");
 
+  // Dark mode toggle
+  const darkModeToggle = createElement('div', { className: 'toggle' });
+  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+
+  function setDarkMode(state) {
+    isDarkMode = state;
+
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.classList.add('slide');
+    } else {
+      document.body.classList.remove('dark-mode');
+      darkModeToggle.classList.remove('slide');
+    }
+
+    localStorage.setItem('isDarkMode', isDarkMode.toString());
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    setDarkMode(!isDarkMode);
+  });
+
+  setDarkMode(isDarkMode);
+
+  container.appendChild(darkModeToggle);
+
   // Autocomplete feature using location API or database
   cityInputEl.addEventListener("input", async (event) => {
     const userInput = event.target.value;
@@ -101,7 +127,7 @@ function Page2() {
         .map((detail) => `<div>${detail}</div>`)
         .join("");
 
-      getWeatherForecast(cityValue);
+      getHourlyWeatherForecast(cityValue);
 
       // Save the searched location to favorites
       saveToFavorites(cityValue);
@@ -113,7 +139,7 @@ function Page2() {
     }
   }
 
-  async function getWeatherForecast(cityValue) {
+  async function getHourlyWeatherForecast(cityValue) {
     try {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${cityValue}&appid=${apikey}&units=metric`
@@ -124,29 +150,29 @@ function Page2() {
       }
 
       const data = await response.json();
-      const forecastData = data.list;
+      const forecastData = data.list.slice(0, 6); // Get the first 6 hourly forecasts
 
       const forecastContainer = document.getElementById("forecast");
       forecastContainer.innerHTML = ""; // Clear previous forecast data
 
-      for (let i = 0; i < forecastData.length; i += 8) {
-        const forecastItem = forecastData[i];
+      forecastData.forEach((forecastItem) => {
         const forecastDate = new Date(forecastItem.dt_txt);
         const forecastTemperature = Math.round(forecastItem.main.temp);
         const forecastDescription = forecastItem.weather[0].description;
         const forecastIcon = forecastItem.weather[0].icon;
+        const forecastHour = forecastDate.getHours();
 
         const forecastElement = createElement('div', { className: 'forecast-item' }, [
-          createElement('div', { className: 'forecast-date', textContent: forecastDate.toDateString() }),
+          createElement('div', { className: 'forecast-hour', textContent: `${forecastHour}:00` }),
           createElement('div', { className: 'forecast-icon', innerHTML: `<img src="http://openweathermap.org/img/wn/${forecastIcon}.png" alt="Forecast Icon">` }),
           createElement('div', { className: 'forecast-temperature', textContent: `${forecastTemperature}°C` }),
           createElement('div', { className: 'forecast-description', textContent: forecastDescription }),
         ]);
 
         forecastContainer.appendChild(forecastElement);
-      }
+      });
     } catch (error) {
-      console.error("Error retrieving weather forecast:", error);
+      console.error("Error retrieving hourly weather forecast:", error);
     }
   }
 
