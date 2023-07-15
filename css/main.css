@@ -181,70 +181,33 @@ nav a:active {
 }
 
 .toggle {
-  width: 100px;
-  height: 50px;
-  background-color: black;
-  border-radius: 25px;
   position: relative;
+  padding: 10px;
+  background-color:var(--secondary-color);
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.slide {
-  background-color: var(--dark-grey);
+.toggle:hover {
+  background-color:var(--hover-color);
 }
+
 
 .dark-mode {
   background-color: #343a40;
   color: #fff;
 }
 
-.dark-mode .toggle {
-  background-color: #fff;
-}
 
-.dark-mode .slide {
-  background-color: black;
-  transform: translateX(50px);
-}
-
-.dark-mode .slide::before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #fff;
-  transition: transform 0.3s ease;
-}
-
-.dark-mode .slide::after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #343a40;
-  color: #fff;
-  transition: transform 0.3s ease;
-}
-
-.dark-mode .slide::before {
-  transform: translateX(10px);
-}
-
-.dark-mode .slide::after {
-  transform: translateX(-10px);
-}
 
 /**Weather Styling**/
 
 .container {
   background-color: var(--tertiary-color);
+  color: var(--text-color);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
   margin-top: 50px;
@@ -252,6 +215,15 @@ nav a:active {
   max-width: 600px;
   border-radius: 5px;
   padding: 20px;
+  transition: background-color 0.3s ease;
+}
+.contain{
+  text-align: center;
+}
+
+.dark-mode .container {
+  background-color: #343a40;
+  color:#fff;
 }
 
 form {
@@ -262,12 +234,17 @@ form {
 }
 
 form input[type="text"] {
+  border-radius: 5px;
   padding: 10px;
+  margin-right: 5px;
   border: none;
   outline: none;
   font-size: 18px;
   width: 60%;
+  background-color: var(--dark-grey);
+  color: var(--light-grey);
 }
+
 
 form input[type="submit"] {
   background-color: var(--secondary-color);
@@ -316,10 +293,95 @@ form input[type="submit"]:hover {
   padding: 20px;
   background-color: var(--primary-color);
   margin: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   flex: 1;
   border-radius: 5px;
   text-align: center;
   min-height: 45px;
+}
+.dark-mode .details > div {
+  background-color: #343a40;
+  color:#fff;
+}
+
+#forecast {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.forecast-item {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--primary-color);
+  margin: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.dark-mode .forecast-item{
+  background-color: #343a40;
+  color:#fff;
+}
+
+.forecast-hour {
+  width: 60px;
+}
+
+.forecast-icon img {
+  width: 55px;
+  height: 55px;
+}
+
+.forecast-temperature {
+  margin-left: 10px;
+}
+
+.forecast-description {
+  margin-left: 10px;
+}
+
+.favorites-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  flex-grow: 1;
+  margin-top: 20px;
+  padding: 10px;
+  
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--hover-color);
+  animation: upAnddown 1s ease-in;
+}
+
+.favorite-item {
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.favorite-item:hover {
+  background-color: var(--favorite-hover-background-color);
+}
+
+.favorite-item:active {
+  background-color: var(--favorite-active-background-color);
 }
 
 /*footer Styling*/
@@ -338,6 +400,7 @@ footer {
     max-width: 1080px;
     margin: auto;
   }
+  /**Home Page Styling**/
   .icons {
     width: 50px;
     padding: 10px;
@@ -350,5 +413,11 @@ footer {
   }
   .head {
     font-size: 35px;
+  }
+
+  /**Weather Styling**/
+  .container {
+    max-width: 800px;
+    
   }
 }

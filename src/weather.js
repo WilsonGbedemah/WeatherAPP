@@ -6,7 +6,6 @@ function Page2() {
     createElement('form', {}, [
       createElement('input', { type: 'text', id: 'city-input', placeholder: 'Enter city' }),
       createElement('input', { type: 'submit', value: 'Get Weather' }),
-      createElement('ul', { id: 'suggestion-list' }), // Add this line to include the suggestion list
     ]),
     createElement('div', { id: 'weather-data' }, [
       createElement('div', { className: 'icon' }),
@@ -25,79 +24,16 @@ function Page2() {
   const formEl = document.querySelector("form");
   const favoritesEl = document.getElementById("favorites");
 
-  // Dark mode toggle
-  const darkModeToggle = createElement('div', { className: 'toggle' });
-  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  let isFavoritesShown = false;
 
-  function setDarkMode(state) {
-    isDarkMode = state;
-
-    if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      darkModeToggle.classList.add('slide');
-    } else {
-      document.body.classList.remove('dark-mode');
-      darkModeToggle.classList.remove('slide');
-    }
-
-    localStorage.setItem('isDarkMode', isDarkMode.toString());
-  }
-
-  darkModeToggle.addEventListener('click', () => {
-    setDarkMode(!isDarkMode);
-  });
-
-  setDarkMode(isDarkMode);
-
-  container.appendChild(darkModeToggle);
-
-  // Autocomplete feature using location API or database
-  cityInputEl.addEventListener("input", async (event) => {
-    const userInput = event.target.value;
-    const suggestions = await fetchLocationSuggestions(userInput);
-    displayLocationSuggestions(suggestions);
-  });
+  
 
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
     const cityValue = cityInputEl.value;
     getWeatherData(cityValue);
   });
-
-  async function fetchLocationSuggestions(userInput) {
-    try {
-      const response = await fetch(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=10&appid=${apikey}`
-      );
-  
-      if (!response.ok) {
-        throw new Error("Failed to fetch location suggestions");
-      }
-  
-      const data = await response.json();
-  
-      // Extract the location names from the response data
-      const suggestions = data.map((location) => location.name);
-  
-      return suggestions;
-    } catch (error) {
-      console.error("Error fetching location suggestions:", error);
-      return []; // Return an empty array if an error occurs
-    }
-  }
-  
-
-  function displayLocationSuggestions(suggestions) {
-    // Clear previous suggestions
-    const suggestionList = document.getElementById("suggestion-list");
-    suggestionList.innerHTML = "";
-
-    // Display suggestions in a dropdown menu
-    suggestions.forEach((suggestion) => {
-      const suggestionItem = createElement('li', { textContent: suggestion });
-      suggestionList.appendChild(suggestionItem);
-    });
-  }
 
   async function getWeatherData(cityValue) {
     try {
@@ -127,14 +63,16 @@ function Page2() {
         .map((detail) => `<div>${detail}</div>`)
         .join("");
 
-      getHourlyWeatherForecast(cityValue);
+      addToFavoritesButton.addEventListener('click', () => {
+        addToFavorites(cityValue);
+      });
 
-      // Save the searched location to favorites
-      saveToFavorites(cityValue);
+      getHourlyWeatherForecast(cityValue);
     } catch (error) {
       weatherDataEl.querySelector(".icon").innerHTML = "";
       weatherDataEl.querySelector(".temperature").textContent = "";
-      weatherDataEl.querySelector(".description").textContent = "An error happened, please try again later";
+      weatherDataEl.querySelector(".description").textContent =
+        "An error happened, please try again later";
       weatherDataEl.querySelector(".details").innerHTML = "";
     }
   }
@@ -176,32 +114,94 @@ function Page2() {
     }
   }
 
-  // Favorites feature
-  let favorites = [];
+  const favoritesContainer = createElement('div', { className: 'favorites-container' }, [
+    createElement('button', { id: 'add-to-favorites', textContent: 'Add to Favorites' }),
+    createElement('button', { id: 'show-favorites', textContent: 'Show Favorites' }),
+    createElement('button', { id: 'clear-favorites', textContent: 'Clear Favorites' }),
+  ]);
 
-  function saveToFavorites(cityValue) {
-    // Save the searched location to favorites
-    favorites.push(cityValue);
-    displayFavorites();
+  container.appendChild(favoritesContainer);
+
+  const addToFavoritesButton = document.getElementById("add-to-favorites");
+  const showFavoritesButton = document.getElementById("show-favorites");
+  const clearFavoritesButton = document.getElementById("clear-favorites");
+
+  showFavoritesButton.addEventListener('click', () => {
+    if (!isFavoritesShown) {
+      displayFavorites();
+    } else {
+      favoritesEl.innerHTML = ""; // Clear favorites
+    }
+    isFavoritesShown = !isFavoritesShown;
+  });
+
+  function addToFavorites(cityValue) {
+    if (!favorites.includes(cityValue)) {
+      favorites.push(cityValue);
+      saveFavoritesToStorage();
+    }
+  }
+
+  function saveFavoritesToStorage() {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
   }
 
   function displayFavorites() {
     favoritesEl.innerHTML = ""; // Clear previous favorites
 
     favorites.forEach((favorite) => {
-      const favoriteItem = createElement('div', { className: 'favorite-item', textContent: favorite });
+      const favoriteItem = createElement('div', {
+        className: 'favorite-item',
+        textContent: favorite,
+        onClick: () => {
+          cityInputEl.value = favorite; // Populate the input field with the favorite city
+          getWeatherData(favorite); // Fetch weather data for the favorite city
+        },
+      });
       favoritesEl.appendChild(favoriteItem);
     });
   }
 
-  displayFavorites();
+  clearFavoritesButton.addEventListener('click', () => {
+    favorites = [];
+    saveFavoritesToStorage();
+    favoritesEl.innerHTML = ""; // Clear favorites
+  });
+  // Dark mode toggle
+  const darkModeToggle = createElement('button', {
+    className: 'toggle',
+  });
 
-  const footer = createElement('footer',{ className: 'weather-footer'},[
-  container,
+  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+
+  function setDarkMode(state) {
+    isDarkMode = state;
+
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.textContent = 'Light Mode';
+    } else {
+      document.body.classList.remove('dark-mode');
+      darkModeToggle.textContent = 'Dark Mode';
+    }
+
+    localStorage.setItem('isDarkMode', isDarkMode.toString());
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    setDarkMode(!isDarkMode);
+  });
+
+  setDarkMode(isDarkMode);
+
+  container.appendChild(darkModeToggle);
+
+  const Contain = createElement('div', { className: 'contain' }, [
+    container,
+    darkModeToggle,
   ]);
-  return createElement('div', { className: 'counter' }, [
-    container
-  ]);
+  
+  return Contain;
 }
 
 export default Page2;

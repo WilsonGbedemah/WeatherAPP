@@ -1,3 +1,4 @@
+
 import { createElement } from './utils';
 
 function Page1() {
@@ -53,7 +54,9 @@ function Page1() {
 
   const introAndCallToAction = createElement('section', {}, [intro, callToAction]);
 
-  const darkModeToggle = createElement('div', { className: 'toggle' });
+  const darkModeToggle = createElement('button', {
+    className: 'toggle',
+  });
 
   let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
 
@@ -62,10 +65,10 @@ function Page1() {
 
     if (isDarkMode) {
       document.body.classList.add('dark-mode');
-      darkModeToggle.classList.add('slide');
+      darkModeToggle.textContent = 'Light Mode';
     } else {
       document.body.classList.remove('dark-mode');
-      darkModeToggle.classList.remove('slide');
+      darkModeToggle.textContent = 'Dark Mode';
     }
 
     localStorage.setItem('isDarkMode', isDarkMode.toString());
@@ -77,13 +80,21 @@ function Page1() {
 
   setDarkMode(isDarkMode);
 
+  const chatBubble = createElement('img', {
+    src: require('./images/chat.png'),
+    className: 'chat-bubble',
+    onClick: () => {
+      window.location.href = '/#/page3';
+    },
+  });
+
   const appContainer = createElement('div', { className: 'app-container' }, [
     heroImage,
     subTitle,
     introAndCallToAction,
     darkModeToggle,
+    chatBubble
   ]);
-  
 
   return appContainer;
 }
