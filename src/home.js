@@ -79,21 +79,22 @@ function Page1() {
   });
 
   setDarkMode(isDarkMode);
-
-  const chatBubble = createElement('img', {
-    src: require('./images/chat.png'),
+   const move = createElement('a', {
+    href: '/#/page3',
     className: 'chat-bubble',
-    onClick: () => {
-      window.location.href = '/#/page3';
-    },
-  });
-
+  }, [
+    createElement('img', {
+      src: require('./images/arrow.png'),
+      alt: 'Chat Icon',
+    }),
+  ]);
+    
   const appContainer = createElement('div', { className: 'app-container' }, [
     heroImage,
     subTitle,
     introAndCallToAction,
     darkModeToggle,
-    chatBubble
+    move
   ]);
 
   return appContainer;

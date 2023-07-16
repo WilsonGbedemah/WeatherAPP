@@ -23,11 +23,10 @@ function Page2() {
   const cityInputEl = document.getElementById("city-input");
   const formEl = document.querySelector("form");
   const favoritesEl = document.getElementById("favorites");
+  const favoritesListEl = favoritesEl; // Assign favoritesEl to favoritesListEl
 
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   let isFavoritesShown = false;
-
-  
 
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -147,18 +146,27 @@ function Page2() {
   }
 
   function displayFavorites() {
-    favoritesEl.innerHTML = ""; // Clear previous favorites
+    favoritesListEl.innerHTML = ""; // Clear previous favorites
 
     favorites.forEach((favorite) => {
       const favoriteItem = createElement('div', {
         className: 'favorite-item',
         textContent: favorite,
-        onClick: () => {
-          cityInputEl.value = favorite; // Populate the input field with the favorite city
-          getWeatherData(favorite); // Fetch weather data for the favorite city
-        },
       });
-      favoritesEl.appendChild(favoriteItem);
+
+      favoriteItem.addEventListener('click', () => {
+        cityInputEl.value = favorite; // Populate the input field with the favorite city
+        getWeatherData(favorite); // Fetch weather data for the favorite city
+
+        // Add active class to the clicked favorite item
+        const favoriteItems = favoritesListEl.getElementsByClassName('favorite-item');
+        Array.from(favoriteItems).forEach((item) => {
+          item.classList.remove('active');
+        });
+        favoriteItem.classList.add('active');
+      });
+
+      favoritesListEl.appendChild(favoriteItem);
     });
   }
 
@@ -167,6 +175,7 @@ function Page2() {
     saveFavoritesToStorage();
     favoritesEl.innerHTML = ""; // Clear favorites
   });
+
   // Dark mode toggle
   const darkModeToggle = createElement('button', {
     className: 'toggle',
@@ -196,11 +205,40 @@ function Page2() {
 
   container.appendChild(darkModeToggle);
 
+
+ 
+  const prev=createElement('a', {
+    href: '/#/page3',
+    className: 'chat-bubble',
+  }, [
+    createElement('img', {
+      src: require('./images/arrow-left.png'),
+      alt: 'Chat Icon',
+    }),
+  ]);  
+  
+  const next= createElement('a', {
+    href: '/#/page3',
+    className: 'chat-bubble',
+  }, [
+    createElement('img', {
+      src: require('./images/arrow.png'),
+      alt: 'Chat Icon',
+    }),
+  ]);
+
+
+
+
+
   const Contain = createElement('div', { className: 'contain' }, [
     container,
+   
     darkModeToggle,
+    
+    
   ]);
-  
+
   return Contain;
 }
 
