@@ -10,6 +10,7 @@
   --tertiary-color: #fff;
   --light-grey: #d0d0d0;
   --dark-grey: #303030;
+  --dark-mode-back: #343a40;
 }
 body {
   margin: 0;
@@ -20,12 +21,43 @@ body {
 
 header {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: var(--dark-grey);
   font-family: var(--font-headline);
   color: var(--light-grey);
 }
+.navigation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.nav-icon {
+  width: 50px;
+  height: 50px;
+}
+.nav-icon:hover {
+  color: var(--hover-color);
+  animation: shake 1s ease-in-out 1;
+}
+
+.nav-item span {
+  margin-top: 5px;
+  font-weight: bolder;
+}
+
+
 @keyframes upAnddown {
   0% {
     transform: translateY(0);
@@ -54,22 +86,11 @@ header {
   height: 130px;
 }
 
-nav {
-  display: flex;
-  gap: 10px;
-}
 nav a {
   font-weight: bolder;
   font-family: var(--font-body);
   text-decoration: none;
   color: var(--light-grey);
-}
-nav a:hover {
-  color: var(--hover-color);
-  animation: shake 1s ease-in-out 1;
-}
-nav a:active {
-  color: var(--primary-color);
 }
 
 @keyframes shake {
@@ -98,17 +119,70 @@ nav a:active {
   }
 }
 .hero-image {
-  width: 100%;
+  width: 20%;
   position: relative;
-  margin:0;
+  margin:auto;
+  transition: opacity 1s ease-in-out;
+}
+.fade-out {
+  animation-name: fadeOut;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation: fadeOut 1s ease-in-out;
+  z-index: 1;
 }
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(-20%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+}
+
+.hero-image:nth-child(2) {
+  animation-delay: 5s;
+}
+
+.hero-image:nth-child(3) {
+  animation-delay: 10s;
+}
+
+.hero-image:nth-child(4) {
+  animation-delay: 15s;
+}
+
+.hero-image:nth-child(5) {
+  animation-delay: 20s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .container.dark-mode h2.head {
-  color: #fff;
+  color: var(--tertiary-color);
 }
 
 .container.dark-mode .content p {
-  color: #fff;
+  color: var(--tertiary-color);
 }
 
 @keyframes slideInLeft {
@@ -198,8 +272,8 @@ nav a:active {
 
 
 .dark-mode {
-  background-color: #343a40;
-  color: #fff;
+  background-color: var(--dark-mode-back);
+  color: var(--tertiary-color);
 }
 
 .chat-bubble img{
@@ -229,8 +303,8 @@ nav a:active {
 }
 
 .dark-mode .container {
-  background-color: #343a40;
-  color:#fff;
+  background-color: var(--dark-mode-back);
+  color: var(--tertiary-color);
 }
 
 form {
@@ -255,7 +329,7 @@ form input[type="text"] {
 
 form input[type="submit"] {
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--tertiary-color);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -311,8 +385,8 @@ form input[type="submit"]:hover {
   min-height: 45px;
 }
 .dark-mode .details > div {
-  background-color: #343a40;
-  color:#fff;
+  background-color: var(--dark-mode-back);
+  color: var(--tertiary-color);
 }
 
 #forecast {
@@ -333,8 +407,8 @@ form input[type="submit"]:hover {
   border-radius: 5px;
 }
 .dark-mode .forecast-item{
-  background-color: #343a40;
-  color:#fff;
+  background-color: var(--dark-mode-back);
+  color: var(--tertiary-color);
 }
 
 .forecast-hour {
@@ -373,7 +447,7 @@ form input[type="submit"]:hover {
 
 button {
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--tertiary-color);
   border: none;
   padding: 10px 20px;
   margin: 10px;
@@ -393,15 +467,6 @@ button:hover {
   margin-bottom: 5px;
   cursor: pointer;
 }
-
-.favorite-item:hover {
-  background-color: var(--favorite-hover-background-color);
-}
-
-.favorite-item:active {
-  background-color: var(--favorite-active-background-color);
-}
-
 
 #favorites {
   margin-bottom: 20px;
@@ -430,11 +495,12 @@ button:hover {
   transition: background-color 0.3s ease;
 }
 .info > div{
-  background-color: var(--tertiary-color);
-  color: var(--text-color);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   margin: 50px;
   padding: 50px;
+}
+.dark-mode{
+  background-color: var(--dark-mode-back);
+  color: var(--tertiary-color);
 }
 .info p{
   font-family: var(--font-body);
@@ -445,6 +511,8 @@ button:hover {
 .info h2{
   font-family: var(--font-headline);
   font-weight: bolder;
+  margin-top: 10px;
+  text-align: center;
 }
 .icon{
   width: 80px;
@@ -452,7 +520,7 @@ button:hover {
 }
 .click{
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--tertiary-color);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -465,6 +533,11 @@ button:hover {
   background-color: var(--hover-color);
   animation: upAnddown 1s ease-in;
 }
+.prev img{
+  display:block;
+  width: 50px;
+  margin-left: 20px;
+  }
 
 /*footer Styling*/
 footer {

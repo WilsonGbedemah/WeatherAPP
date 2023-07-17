@@ -1,6 +1,4 @@
-import {
-  createElement
-} from './utils';
+import { createElement } from './utils';
 
 function Page3() {
   const title = createElement('h2', {
@@ -78,12 +76,35 @@ function Page3() {
     ]),
   ]);
 
-  const page1Link = createElement('a', {
-    href: '/#/page1',
-    textContent: 'Go to Home Page',
+
+  // Dark mode toggle
+  const darkModeToggle = createElement('button', {
+    className: 'toggle',
   });
 
-  return createElement('div', {}, [title, container, page1Link]);
+  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+
+  function setDarkMode(state) {
+    isDarkMode = state;
+
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.textContent = 'Light Mode';
+    } else {
+      document.body.classList.remove('dark-mode');
+      darkModeToggle.textContent = 'Dark Mode';
+    }
+
+    localStorage.setItem('isDarkMode', isDarkMode.toString());
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    setDarkMode(!isDarkMode);
+  });
+
+  setDarkMode(isDarkMode);
+
+  return createElement('div', {}, [title, container, darkModeToggle]);
 }
 
 export default Page3;

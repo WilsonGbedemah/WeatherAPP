@@ -15,8 +15,18 @@ function Page2() {
     ]),
     createElement('div', { id: 'forecast' }),
     createElement('div', { id: 'favorites' }),
+    createElement('div', { className: 'temperature-toggle' }, [
+      createElement('span', { textContent: '°C' }),
+      createElement('label', { className: 'switch' }, [
+        createElement('input', { type: 'checkbox', id: 'toggle-input' }),
+        createElement('span', { className: 'slider round' }),
+      ]),
+      createElement('span', { textContent: '°F' }),
+    ]),
   ]);
   document.body.appendChild(container);
+
+  //Weather Forecast API call and code
 
   const apikey = "46f80a02ecae410460d59960ded6e1c6";
   const weatherDataEl = document.getElementById("weather-data");
@@ -27,6 +37,7 @@ function Page2() {
 
   let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
   let isFavoritesShown = false;
+  let isMetricUnit = true;
 
   formEl.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -37,7 +48,7 @@ function Page2() {
   async function getWeatherData(cityValue) {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apikey}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apikey}&units=${isMetricUnit ? 'metric' : 'imperial'}`
       );
 
       if (!response.ok) {
@@ -52,11 +63,11 @@ function Page2() {
       const details = [
         `Feels like: ${Math.round(data.main.feels_like)}`,
         `Humidity: ${data.main.humidity}%`,
-        `Wind speed: ${data.wind.speed} m/s`,
+        `Wind speed: ${data.wind.speed} ${isMetricUnit ? 'm/s' : 'mph'}`,
       ];
 
       weatherDataEl.querySelector(".icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}.png" alt="Weather Icon">`;
-      weatherDataEl.querySelector(".temperature").textContent = `${temperature}°C`;
+      weatherDataEl.querySelector(".temperature").textContent = `${temperature}${isMetricUnit ? '°C' : '°F'}`;
       weatherDataEl.querySelector(".description").textContent = description;
       weatherDataEl.querySelector(".details").innerHTML = details
         .map((detail) => `<div>${detail}</div>`)
@@ -76,10 +87,11 @@ function Page2() {
     }
   }
 
+  //Hourly weather Forecast
   async function getHourlyWeatherForecast(cityValue) {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityValue}&appid=${apikey}&units=metric`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityValue}&appid=${apikey}&units=${isMetricUnit ? 'metric' : 'imperial'}`
       );
 
       if (!response.ok) {
@@ -102,7 +114,7 @@ function Page2() {
         const forecastElement = createElement('div', { className: 'forecast-item' }, [
           createElement('div', { className: 'forecast-hour', textContent: `${forecastHour}:00` }),
           createElement('div', { className: 'forecast-icon', innerHTML: `<img src="http://openweathermap.org/img/wn/${forecastIcon}.png" alt="Forecast Icon">` }),
-          createElement('div', { className: 'forecast-temperature', textContent: `${forecastTemperature}°C` }),
+          createElement('div', { className: 'forecast-temperature', textContent: `${forecastTemperature}${isMetricUnit ? '°C' : '°F'}` }),
           createElement('div', { className: 'forecast-description', textContent: forecastDescription }),
         ]);
 
@@ -113,6 +125,7 @@ function Page2() {
     }
   }
 
+  // Favorites Section
   const favoritesContainer = createElement('div', { className: 'favorites-container' }, [
     createElement('button', { id: 'add-to-favorites', textContent: 'Add to Favorites' }),
     createElement('button', { id: 'show-favorites', textContent: 'Show Favorites' }),
@@ -176,6 +189,33 @@ function Page2() {
     favoritesEl.innerHTML = ""; // Clear favorites
   });
 
+  // Temperature Toggle
+  const toggleInput = container.querySelector('#toggle-input');
+  toggleInput.addEventListener('change', () => {
+    isMetricUnit = !toggleInput.checked;
+    const temperatureElements = document.querySelectorAll('.temperature');
+    const currentUnit = isMetricUnit ? '°C' : '°F';
+
+    temperatureElements.forEach((element) => {
+      const temperature = parseInt(element.textContent, 10);
+      const convertedTemperature = isMetricUnit ? celsiusToFahrenheit(temperature) : fahrenheitToCelsius(temperature);
+      element.textContent = `${convertedTemperature}${currentUnit}`;
+    });
+
+    // Update weather and forecast
+    const cityValue = cityInputEl.value;
+    getWeatherData(cityValue);
+    getHourlyWeatherForecast(cityValue);
+  });
+
+  function celsiusToFahrenheit(celsius) {
+    return Math.round((celsius * 9) / 5 + 32);
+  }
+
+  function fahrenheitToCelsius(fahrenheit) {
+    return Math.round(((fahrenheit - 32) * 5) / 9);
+  }
+
   // Dark mode toggle
   const darkModeToggle = createElement('button', {
     className: 'toggle',
@@ -205,38 +245,9 @@ function Page2() {
 
   container.appendChild(darkModeToggle);
 
-
- 
-  const prev=createElement('a', {
-    href: '/#/page3',
-    className: 'chat-bubble',
-  }, [
-    createElement('img', {
-      src: require('./images/arrow-left.png'),
-      alt: 'Chat Icon',
-    }),
-  ]);  
-  
-  const next= createElement('a', {
-    href: '/#/page3',
-    className: 'chat-bubble',
-  }, [
-    createElement('img', {
-      src: require('./images/arrow.png'),
-      alt: 'Chat Icon',
-    }),
-  ]);
-
-
-
-
-
   const Contain = createElement('div', { className: 'contain' }, [
     container,
-   
     darkModeToggle,
-    
-    
   ]);
 
   return Contain;
