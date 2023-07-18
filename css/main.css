@@ -32,7 +32,6 @@ header {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  
 }
 
 .nav-item {
@@ -41,6 +40,9 @@ header {
   align-items: center;
   cursor: pointer;
   padding: 5px;
+  font-family: var(--font-headline);
+  margin-top: 50px;
+  margin-bottom: 0;
 }
 
 .nav-icon {
@@ -56,7 +58,6 @@ header {
   margin-top: 5px;
   font-weight: bolder;
 }
-
 
 @keyframes upAnddown {
   0% {
@@ -86,12 +87,6 @@ header {
   height: 130px;
 }
 
-nav a {
-  font-weight: bolder;
-  font-family: var(--font-body);
-  text-decoration: none;
-  color: var(--light-grey);
-}
 
 @keyframes shake {
   0% {
@@ -121,7 +116,7 @@ nav a {
 .hero-image {
   width: 20%;
   position: relative;
-  margin:auto;
+  margin: auto;
   transition: opacity 1s ease-in-out;
 }
 .fade-out {
@@ -162,20 +157,6 @@ nav a {
 .hero-image:nth-child(5) {
   animation-delay: 20s;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .container.dark-mode h2.head {
   color: var(--tertiary-color);
@@ -258,7 +239,7 @@ nav a {
   position: relative;
   margin: 10px;
   padding: 10px;
-  background-color:var(--secondary-color);
+  background-color: var(--secondary-color);
   font-size: 15px;
   font-weight: bold;
   border: none;
@@ -267,22 +248,20 @@ nav a {
 }
 
 .toggle:hover {
-  background-color:var(--hover-color);
+  background-color: var(--hover-color);
 }
-
 
 .dark-mode {
   background-color: var(--dark-mode-back);
   color: var(--tertiary-color);
 }
 
-.chat-bubble img{
+.chat-bubble img {
   width: 50px;
   position: absolute;
   top: 168%;
   right: 50px;
 }
-
 
 /**Weather Styling**/
 
@@ -298,7 +277,7 @@ nav a {
   padding: 20px;
   transition: background-color 0.3s ease;
 }
-.contain{
+.contain {
   text-align: center;
 }
 
@@ -322,10 +301,12 @@ form input[type="text"] {
   outline: none;
   font-size: 18px;
   width: 60%;
-  background-color: var(--dark-grey);
+  background-color: var(--primary-color);
   color: var(--light-grey);
 }
-
+.dark-mode form input[type="text"]{
+  background-color: var(--light-grey);
+}
 
 form input[type="submit"] {
   background-color: var(--secondary-color);
@@ -374,7 +355,7 @@ form input[type="submit"]:hover {
   flex-wrap: wrap;
 }
 
-.details  div {
+.details div {
   padding: 20px;
   background-color: var(--primary-color);
   margin: 10px;
@@ -406,7 +387,7 @@ form input[type="submit"]:hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
-.dark-mode .forecast-item{
+.dark-mode .forecast-item {
   background-color: var(--dark-mode-back);
   color: var(--tertiary-color);
 }
@@ -439,7 +420,7 @@ form input[type="submit"]:hover {
   margin-bottom: 20px;
 }
 
-#show-favorites{
+#show-favorites {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -481,7 +462,7 @@ button:hover {
   font-weight: bold;
 }
 /**Info styling**/
-.info{
+.info {
   margin: 0 auto;
   margin-top: 50px;
   display: flex;
@@ -494,31 +475,31 @@ button:hover {
   padding: 20px;
   transition: background-color 0.3s ease;
 }
-.info > div{
+.info > div {
   margin: 50px;
   padding: 50px;
 }
-.dark-mode{
+.dark-mode {
   background-color: var(--dark-mode-back);
   color: var(--tertiary-color);
 }
-.info p{
+.info p {
   font-family: var(--font-body);
   font-weight: bold;
   opacity: 0.75;
   display: block;
 }
-.info h2{
+.info h2 {
   font-family: var(--font-headline);
   font-weight: bolder;
   margin-top: 10px;
   text-align: center;
 }
-.icon{
+.icon {
   width: 80px;
   margin-top: 20px;
 }
-.click{
+.click {
   background-color: var(--secondary-color);
   color: var(--tertiary-color);
   border: none;
@@ -529,15 +510,10 @@ button:hover {
   outline: none;
   transition: background-color 0.3s ease;
 }
-.click:hover{
+.click:hover {
   background-color: var(--hover-color);
   animation: upAnddown 1s ease-in;
 }
-.prev img{
-  display:block;
-  width: 50px;
-  margin-left: 20px;
-  }
 
 /*footer Styling*/
 footer {
@@ -560,7 +536,7 @@ footer {
     width: 50px;
     padding: 10px;
   }
-  .chat-bubble img{
+  .chat-bubble img {
     width: 50px;
     position: absolute;
     top: 205%;
@@ -579,9 +555,8 @@ footer {
   /**Weather Styling**/
   .container {
     max-width: 800px;
-    
   }
-  .info{
+  .info {
     margin: auto;
     display: flex;
     flex-flow: row;
