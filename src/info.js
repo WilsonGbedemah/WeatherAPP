@@ -1,4 +1,4 @@
-import { createElement } from './utils';
+/*import { createElement } from './utils';
 
 function Page3() {
   const title = createElement('h2', {
@@ -6,76 +6,82 @@ function Page3() {
     className: 'head',
   });
 
-  const container = createElement('div', {
-    className: 'info'
-  }, [
-    createElement('div', {
-      id: 'contact'
-    }, [
+  const container = createElement('div', { className: 'info' }, [
+    createElement('div', { id: 'contact' }, [
       createElement('img', {
         src: require('./images/contact-us.png'),
         alt: 'icon',
-        className: 'icon'
+        className: 'icon',
       }),
       createElement('h2', {
         textContent: 'GET IN TOUCH',
-        className: 'touch'
+        className: 'touch',
       }),
       createElement('p', {
         textContent: 'Email: ',
-        className: 'email'
+        className: 'email',
       }),
       createElement('p', {
         textContent: 'afrogbede09@gmail.com',
-        className: 'contact-info'
+        className: 'contact-info',
       }),
       createElement('p', {
         textContent: 'Phone: ',
-        className: 'phone'
+        className: 'phone',
       }),
       createElement('p', {
         textContent: '+233 556 427 542',
-        className: 'contact-info'
+        className: 'contact-info',
       }),
     ]),
-    createElement('div', {
-      id: 'case'
-    }, [
+  
+    createElement('div', { id: 'case' }, [
       createElement('img', {
         src: require('./images/document.png'),
         alt: 'icon',
-        className: 'icon'
+        className: 'icon',
       }),
       createElement('h2', {
         textContent: 'START A NEW CASE',
-        className: 'new'
+        className: 'new',
+      }),
+      createElement('h3', {
+        textContent: 'What are your concerns?',
+        className: 'para',
       }),
       createElement('p', {
-        textContent: 'Just send us your questions or concerns by starting a new case and we will give you the help you need. Thank You👍',
-        className: 'para'
+        textContent: 'Send us your questions and concern and we will get back to you as soon as possible. Thank you!',
+        className: 'para',
       }),
-      createElement('input', { type: 'submit', value: 'Start Case', className: 'click'}),
+      createElement('form', { className: 'form' }, [
+        createElement('label', { className: 'info' }, [
+          createElement('textarea', { id: 'description', name: 'description', rows: '10', cols: '30' }),
+        ]),
+        createElement('input', { type: 'submit', value: 'Contact us', className: 'submitbtn' }),
+      ]),
     ]),
-    createElement('div', {
-      id: 'chat'
-    }, [
+    
+    createElement('div', { id: 'chat' }, [
       createElement('img', {
-        src: require('./images/chat.png'),
+        src: require('./images/question.png'),
         alt: 'icon',
-        className: 'icon'
+        className: 'icon',
       }),
       createElement('h2', {
-        textContent: 'LIVE CHAT',
-        className: 'live'
+        textContent: 'FREQUENTLY ASKED QUESTIONS',
+        className: 'faq',
       }),
       createElement('p', {
-        textContent: 'Chat with a member of our in-house team',
-        className: 'phone'
+        textContent: 'Find answers to commonly asked questions',
+        className: 'info',
       }),
-      createElement('input', { type: 'submit', value: 'Start Chat', className: 'click' }),
-    ]),
+      createElement('a', {
+        href: 'https://openweathermap.org/faq',
+        textContent: 'view FAQs',
+      }),
+    ]),    
   ]);
-
+  
 
   // Dark mode toggle
   const darkModeToggle = createElement('button', {
@@ -105,6 +111,144 @@ function Page3() {
   setDarkMode(isDarkMode);
 
   return createElement('div', {}, [title, container, darkModeToggle]);
+}
+
+export default Page3;*/
+import { createElement } from './utils';
+
+function handleFormSubmit(event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+  
+  // Get the form input values
+  const descriptionInput = document.getElementById('description');
+  const description = descriptionInput.value;
+  
+  // Print the confirmation message
+  const confirmationMessage = `Thank you for submitting your concerns. We will get back to you as soon as possible. Your concerns: ${description}`;
+  console.log(confirmationMessage);
+  
+  // Clear the form input
+  descriptionInput.value = '';
+}
+
+function createCaseForm() {
+  const form = createElement('form', { className: 'form' }, [
+    createElement('label', { className: 'info' }, [
+      createElement('textarea', { id: 'description', name: 'description', rows: '10', cols: '30' }),
+    ]),
+    createElement('input', { type: 'submit', value: 'Contact us', className: 'submitbtn' }),
+  ]);
+
+  form.addEventListener('submit', handleFormSubmit);
+
+  const caseFormDiv = createElement('div', { className: 'case-form' }, [
+    createElement('img', {
+      src: require('./images/document.png'),
+      alt: 'icon',
+      className: 'icon',
+    }),
+    createElement('h2', {
+      textContent: 'START A NEW CASE',
+      className: 'new',
+    }),
+    createElement('h3', {
+      textContent: 'What are your concerns?',
+      className: 'para',
+    }),
+    createElement('p', {
+      textContent: 'Send us your questions and concern and we will get back to you as soon as possible. Thank you!',
+      className: 'para',
+    }),
+    form,
+  ]);
+
+  return caseFormDiv;
+}
+
+function Page3() {
+  const title = createElement('h2', {
+    textContent: 'Contact Us',
+    className: 'head',
+  });
+
+  const contactSection = createElement('div', { className: 'info' }, [
+    createElement('div', { id: 'contact' }, [
+      createElement('img', {
+        src: require('./images/contact-us.png'),
+        alt: 'icon',
+        className: 'icon',
+      }),
+      createElement('h2', {
+        textContent: 'GET IN TOUCH',
+        className: 'touch',
+      }),
+      createElement('p', {
+        textContent: 'Email: ',
+        className: 'email',
+      }),
+      createElement('p', {
+        textContent: 'afrogbede09@gmail.com',
+        className: 'contact-info',
+      }),
+      createElement('p', {
+        textContent: 'Phone: ',
+        className: 'phone',
+      }),
+      createElement('p', {
+        textContent: '+233 556 427 542',
+        className: 'contact-info',
+      }),
+    ]),
+    createCaseForm(),
+    createElement('div', { id: 'chat' }, [
+      createElement('img', {
+        src: require('./images/question.png'),
+        alt: 'icon',
+        className: 'icon',
+      }),
+      createElement('h2', {
+        textContent: 'FREQUENTLY ASKED QUESTIONS',
+        className: 'faq',
+      }),
+      createElement('p', {
+        textContent: 'Find answers to commonly asked questions',
+        className: 'info',
+      }),
+      createElement('a', {
+        href: 'https://openweathermap.org/faq',
+        textContent: 'View FAQs',
+      }),
+    ]),
+  ]);
+
+  // Dark mode toggle
+  const darkModeToggle = createElement('button', {
+    className: 'toggle',
+  });
+
+  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+
+  function setDarkMode(state) {
+    isDarkMode = state;
+
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.textContent = 'Light Mode';
+    } else {
+      document.body.classList.remove('dark-mode');
+      darkModeToggle.textContent = 'Dark Mode';
+    }
+
+    localStorage.setItem('isDarkMode', isDarkMode.toString());
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    setDarkMode(!isDarkMode);
+  });
+
+  setDarkMode(isDarkMode);
+
+  return createElement('div', {}, [title, contactSection, darkModeToggle]);
 }
 
 export default Page3;

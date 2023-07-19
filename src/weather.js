@@ -1,8 +1,9 @@
 import { createElement } from './utils';
 
+//Creating of the Page2 HTML elements
 function Page2() {
   const container = createElement('div', { className: 'container' }, [
-    createElement('h2', { textContent: 'Check the weather' }),
+    createElement('h2', { textContent: 'Check Your weather' }),
     createElement('form', {}, [
       createElement('input', { type: 'text', id: 'city-input', placeholder: 'Enter city' }),
       createElement('input', { type: 'submit', value: 'Get Weather' }),
@@ -28,7 +29,7 @@ function Page2() {
 
   //Weather Forecast API call and code
 
-  const apikey = "46f80a02ecae410460d59960ded6e1c6";
+  const apikey = "cd716e3725143ae8cd86b17c41e03a2f";
   const weatherDataEl = document.getElementById("weather-data");
   const cityInputEl = document.getElementById("city-input");
   const formEl = document.querySelector("form");
@@ -189,32 +190,35 @@ function Page2() {
     favoritesEl.innerHTML = ""; // Clear favorites
   });
 
+
   // Temperature Toggle
-  const toggleInput = container.querySelector('#toggle-input');
-  toggleInput.addEventListener('change', () => {
-    isMetricUnit = !toggleInput.checked;
-    const temperatureElements = document.querySelectorAll('.temperature');
-    const currentUnit = isMetricUnit ? '°C' : '°F';
+ const toggleInput = container.querySelector('#toggle-input');
+toggleInput.addEventListener('change', () => {
+  isMetricUnit = !toggleInput.checked;
+  const temperatureElements = document.querySelectorAll('.temperature');
+  const currentUnit = isMetricUnit ? '°C' : '°F';
 
-    temperatureElements.forEach((element) => {
-      const temperature = parseInt(element.textContent, 10);
-      const convertedTemperature = isMetricUnit ? celsiusToFahrenheit(temperature) : fahrenheitToCelsius(temperature);
-      element.textContent = `${convertedTemperature}${currentUnit}`;
-    });
-
-    // Update weather and forecast
-    const cityValue = cityInputEl.value;
-    getWeatherData(cityValue);
-    getHourlyWeatherForecast(cityValue);
+  temperatureElements.forEach((element) => {
+    const temperature = parseInt(element.textContent, 10);
+    const convertedTemperature = isMetricUnit ? celsiusToFahrenheit(temperature) : fahrenheitToCelsius(temperature);
+    element.textContent = `${convertedTemperature}${currentUnit}`;
   });
 
-  function celsiusToFahrenheit(celsius) {
-    return Math.round((celsius * 9) / 5 + 32);
+  const cityValue = cityInputEl.value;
+  if (cityValue) {
+    getWeatherData(cityValue);
+    getHourlyWeatherForecast(cityValue);
   }
+});
 
-  function fahrenheitToCelsius(fahrenheit) {
-    return Math.round(((fahrenheit - 32) * 5) / 9);
-  }
+function celsiusToFahrenheit(celsius) {
+  return Math.round((celsius * 9) / 5 + 32);
+}
+
+function fahrenheitToCelsius(fahrenheit) {
+  return Math.round(((fahrenheit - 32) * 5) / 9);
+}
+
 
   // Dark mode toggle
   const darkModeToggle = createElement('button', {

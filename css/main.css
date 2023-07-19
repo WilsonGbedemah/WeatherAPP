@@ -32,6 +32,7 @@ header {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
+  margin-left: 20px;
 }
 
 .nav-item {
@@ -219,7 +220,7 @@ header {
   font-size: 15px;
   cursor: pointer;
   outline: none;
-  font-family: Arvo;
+  font-family: var(--font-headline);
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
@@ -463,16 +464,13 @@ button:hover {
 }
 /**Info styling**/
 .info {
-  margin: 0 auto;
-  margin-top: 50px;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   justify-items: center;
   text-align: center;
-  max-width: 600px;
+  /*max-width: 600px;*/
   border-radius: 5px;
-  padding: 20px;
   transition: background-color 0.3s ease;
 }
 .info > div {
@@ -499,20 +497,28 @@ button:hover {
   width: 80px;
   margin-top: 20px;
 }
-.click {
+.form{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.form .submitbtn {
+  margin-top: 10px;
+}
+#chat a{
   background-color: var(--secondary-color);
   color: var(--tertiary-color);
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
   outline: none;
+  font-family: var(--font-headline);
+  text-decoration: none;
   transition: background-color 0.3s ease;
-}
-.click:hover {
-  background-color: var(--hover-color);
-  animation: upAnddown 1s ease-in;
+ 
 }
 
 /*footer Styling*/
@@ -528,7 +534,7 @@ footer {
 /**LARGE VIEWPORT STYLING**/
 @media only screen and (min-width: 64em) {
   body {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: auto;
   }
   /**Home Page Styling**/
@@ -554,11 +560,13 @@ footer {
 
   /**Weather Styling**/
   .container {
-    max-width: 800px;
+    max-width: 1000px;
   }
   .info {
+    max-width: 1300;
     margin: auto;
     display: flex;
     flex-flow: row;
   }
+
 }

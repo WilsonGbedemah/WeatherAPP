@@ -1,61 +1,3 @@
-/*import { createElement } from './utils';
-import { initRouter } from './router';
-
-
-function Header(mainDiv) {
-  //create logo element
-  const logoImg = createElement('img', {
-    src: require('./images/logo.png'),
-    alt: 'WeatherNow logo',
-    className: 'logo',
-  });
-
-
-  const appTitle = createElement('h1', {
-    textContent: 'WeatherNOW',
-    className: 'heading',
-  });
-
-  // nav items
-  const page1 = createElement('a', {
-    href: '/#/page1',
-    textContent: 'Home',
-  });
-  const page2 = createElement('a', {
-    href: '/#/page2',
-    textContent: 'Weather',
-  });
-  const page3 = createElement('a', {
-    href: '/#/page3',
-    textContent: 'Contact Us',
-  });
-  
-  
-
-  const nav = createElement('nav', {}, [page1, page2, page3]);
-
-  return createElement('header', {}, [logoImg, appTitle, nav]);
-}
-
-
-function Footer() {
-  const copyright = createElement('span', {
-    textContent: `Copyright © ${new Date().getFullYear()} | WeatherNOW` ,
-  });
-
-  return createElement('footer', {}, [copyright]);
-}
-
-function App() {
-  const main = createElement('main', {}, []);
-
-  initRouter(main);
-
-  return createElement('div', {}, [Header(main), main, Footer()]);
-}
-
-export default App;*/
-
 import { createElement } from './utils';
 import { initRouter } from './router';
 
@@ -138,8 +80,9 @@ function App() {
 
   const appContainer = createElement('div', { className: 'app-container' }, [header, main, navigation]);
 
-  document.body.appendChild(appContainer);
-  document.body.appendChild(footer);
+  const appRoot = createElement('div', {}, [appContainer, footer]);
+
+  return appRoot;
 }
 
 export default App;
