@@ -212,9 +212,10 @@ header {
   display: block;
 }
 .call a {
-  background-color: var(--secondary-color);
+  text-transform: uppercase;
   color: var(--tertiary-color);
   border: none;
+  display: block;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 15px;
@@ -222,13 +223,12 @@ header {
   outline: none;
   font-family: var(--font-headline);
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  animation: upAnddown 2s linear infinite;
 }
 
 .call a:hover {
-  background-color: var(--hover-color);
-  color: var(--light-grey);
-  animation: upAnddown 1s ease-in;
+  color: var(--secondary-color);
+  
 }
 
 .app-container {
@@ -506,19 +506,28 @@ button:hover {
 .form .submitbtn {
   margin-top: 10px;
 }
-#chat a{
-  background-color: var(--secondary-color);
+.inform{
+  margin-bottom: 5px;
+}
+#chat a {
+  text-transform: uppercase;
   color: var(--tertiary-color);
   border: none;
+  display: block;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 15px;
   cursor: pointer;
   outline: none;
+  font-weight: bolder;
   font-family: var(--font-headline);
   text-decoration: none;
-  transition: background-color 0.3s ease;
- 
+  animation: upAnddown 2s linear infinite;
+}
+
+#chat a:hover {
+  color: var(--secondary-color);
+  
 }
 
 /*footer Styling*/
