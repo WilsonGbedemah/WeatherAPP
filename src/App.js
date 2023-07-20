@@ -63,7 +63,7 @@ function Footer() {
   const currentYear = new Date().getFullYear();
 
   const copyright = createElement('span', {
-    textContent: `© ${currentYear} WeatherNOW`,
+    textContent: `© ${currentYear} | WeatherNOW`,
   });
 
   return createElement('footer', {}, [copyright]);

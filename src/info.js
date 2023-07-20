@@ -123,12 +123,17 @@ function handleFormSubmit(event) {
   const descriptionInput = document.getElementById('description');
   const description = descriptionInput.value;
   
-  // Print the confirmation message
+  // Create a div for displaying the confirmation message
+  const confirmationDiv = createElement('div', { className: 'confirmation-message' });
   const confirmationMessage = `Thank you for submitting your concerns. We will get back to you as soon as possible. Your concerns: ${description}`;
-  console.log(confirmationMessage);
+  confirmationDiv.textContent = confirmationMessage;
   
   // Clear the form input
   descriptionInput.value = '';
+  
+  // Append the confirmation message div to the page
+  const form = event.target;
+  form.parentNode.insertBefore(confirmationDiv, form.nextSibling);
 }
 
 function createCaseForm() {
@@ -136,7 +141,7 @@ function createCaseForm() {
     createElement('label', { className: 'info' }, [
       createElement('textarea', { id: 'description', name: 'description', rows: '10', cols: '30' }),
     ]),
-    createElement('input', { type: 'submit', value: 'Contact us', className: 'submitbtn' }),
+    createElement('input', { type: 'submit', value: 'Submit', className: 'submitbtn' }),
   ]);
 
   form.addEventListener('submit', handleFormSubmit);
