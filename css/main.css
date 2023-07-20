@@ -332,11 +332,9 @@ form input[type="submit"]:hover {
 }
 
 .icon img {
-  width: 100px;
-  height: 100px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
+  position: relative;
+  width: 200px;
+  margin-left: 120px;
 }
 
 .temperature {
@@ -572,6 +570,12 @@ footer {
   .container {
     max-width: 1000px;
   }
+  .icon img {
+    position: relative;
+    width: 200px;
+    margin-left: 400px;
+  }
+  /**Info**/
   .info {
     max-width: 1300;
     margin: auto;
