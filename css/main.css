@@ -448,19 +448,19 @@ button:hover {
 .favorite-item {
   margin-bottom: 5px;
   cursor: pointer;
+  text-transform: uppercase;
+  font-family: var(--font-headline);
+  font-weight: bold;
+  cursor: pointer;
+  
 }
 
 #favorites {
   margin-bottom: 20px;
 }
 
-.favorite-item {
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-
 .favorite-item.active {
-  font-weight: bold;
+  font-weight: bolder;
 }
 /**Info styling**/
 .info {
