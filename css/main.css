@@ -88,7 +88,6 @@ header {
   height: 130px;
 }
 
-
 @keyframes shake {
   0% {
     transform: translateX(0);
@@ -228,7 +227,6 @@ header {
 
 .call a:hover {
   color: var(--secondary-color);
-  
 }
 
 .app-container {
@@ -305,7 +303,7 @@ form input[type="text"] {
   background-color: var(--primary-color);
   color: var(--light-grey);
 }
-.dark-mode form input[type="text"]{
+.dark-mode form input[type="text"] {
   background-color: var(--light-grey);
 }
 
@@ -452,7 +450,6 @@ button:hover {
   font-family: var(--font-headline);
   font-weight: bold;
   cursor: pointer;
-  
 }
 
 #favorites {
@@ -462,6 +459,7 @@ button:hover {
 .favorite-item.active {
   font-weight: bolder;
 }
+
 /**Info styling**/
 .info {
   display: flex;
@@ -497,7 +495,7 @@ button:hover {
   width: 80px;
   margin-top: 20px;
 }
-.form{
+.form {
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -506,7 +504,7 @@ button:hover {
 .form .submitbtn {
   margin-top: 10px;
 }
-.inform{
+.inform {
   margin-bottom: 5px;
 }
 #chat a {
@@ -527,12 +525,12 @@ button:hover {
 
 #chat a:hover {
   color: var(--secondary-color);
-  
 }
 
 /*footer Styling*/
 footer {
   margin-top: 5%;
+  font-family: var(--font-headline);
   font-weight: bolder;
   text-align: center;
   padding: 16px;
@@ -577,5 +575,4 @@ footer {
     display: flex;
     flex-flow: row;
   }
-
 }
