@@ -1,30 +1,84 @@
-import { createElement } from './utils';
+import { createElement } from "./utils";
 
 //Creating of the Page2 HTML elements
 function Page2() {
-  const container = createElement('div', { className: 'container' }, [
-    createElement('h2', { textContent: 'Check Your weather' }),
-    createElement('form', {}, [
-      createElement('input', { type: 'text', id: 'city-input', placeholder: 'Enter city' }),
-      createElement('input', { type: 'submit', value: 'Get Weather' }),
-    ]),
-    createElement('div', { id: 'weather-data' }, [
-      createElement('div', { className: 'icon' }),
-      createElement('div', { className: 'temperature' }),
-      createElement('div', { className: 'description' }),
-      createElement('div', { className: 'details' }),
-    ]),
-    createElement('div', { id: 'forecast' }),
-    createElement('div', { id: 'favorites' }),
-    createElement('div', { className: 'temperature-toggle' }, [
-      createElement('span', { textContent: '°C' }),
-      createElement('label', { className: 'switch' }, [
-        createElement('input', { type: 'checkbox', id: 'toggle-input' }),
-        createElement('span', { className: 'slider round' }),
+  const container = createElement(
+    "div",
+    {
+      className: "container",
+    },
+    [
+      createElement("h2", {
+        textContent: "Check Your weather",
+      }),
+      createElement("form", {}, [
+        createElement("input", {
+          type: "text",
+          id: "city-input",
+          placeholder: "Enter city",
+        }),
+        createElement("input", {
+          type: "submit",
+          value: "Get Weather",
+        }),
       ]),
-      createElement('span', { textContent: '°F' }),
-    ]),
-  ]);
+      createElement(
+        "div",
+        {
+          id: "weather-data",
+        },
+        [
+          createElement("div", {
+            className: "icon",
+          }),
+          createElement("div", {
+            className: "temperature",
+          }),
+          createElement("div", {
+            className: "description",
+          }),
+          createElement("div", {
+            className: "details",
+          }),
+        ]
+      ),
+      createElement("div", {
+        id: "forecast",
+      }),
+      createElement("div", {
+        id: "favorites",
+      }),
+      createElement(
+        "div",
+        {
+          className: "temperature-toggle",
+        },
+        [
+          createElement("span", {
+            textContent: "°C",
+          }),
+          createElement(
+            "label",
+            {
+              className: "switch",
+            },
+            [
+              createElement("input", {
+                type: "checkbox",
+                id: "toggle-input",
+              }),
+              createElement("span", {
+                className: "slider round",
+              }),
+            ]
+          ),
+          createElement("span", {
+            textContent: "°F",
+          }),
+        ]
+      ),
+    ]
+  );
   document.body.appendChild(container);
 
   //Weather Forecast API call and code
@@ -36,7 +90,7 @@ function Page2() {
   const favoritesEl = document.getElementById("favorites");
   const favoritesListEl = favoritesEl; // Assign favoritesEl to favoritesListEl
 
-  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
   let isFavoritesShown = false;
   let isMetricUnit = true;
 
@@ -49,7 +103,9 @@ function Page2() {
   async function getWeatherData(cityValue) {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apikey}&units=${isMetricUnit ? 'metric' : 'imperial'}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apikey}&units=${
+          isMetricUnit ? "metric" : "imperial"
+        }`
       );
 
       if (!response.ok) {
@@ -64,17 +120,21 @@ function Page2() {
       const details = [
         `Feels like: ${Math.round(data.main.feels_like)}`,
         `Humidity: ${data.main.humidity}%`,
-        `Wind speed: ${data.wind.speed} ${isMetricUnit ? 'm/s' : 'mph'}`,
+        `Wind speed: ${data.wind.speed} ${isMetricUnit ? "m/s" : "mph"}`,
       ];
 
-      weatherDataEl.querySelector(".icon").innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}.png" alt="Weather Icon">`;
-      weatherDataEl.querySelector(".temperature").textContent = `${temperature}${isMetricUnit ? '°C' : '°F'}`;
+      weatherDataEl.querySelector(
+        ".icon"
+      ).innerHTML = `<img src="http://openweathermap.org/img/wn/${icon}.png" alt="Weather Icon">`;
+      weatherDataEl.querySelector(
+        ".temperature"
+      ).textContent = `${temperature}${isMetricUnit ? "°C" : "°F"}`;
       weatherDataEl.querySelector(".description").textContent = description;
       weatherDataEl.querySelector(".details").innerHTML = details
         .map((detail) => `<div>${detail}</div>`)
         .join("");
 
-      addToFavoritesButton.addEventListener('click', () => {
+      addToFavoritesButton.addEventListener("click", () => {
         addToFavorites(cityValue);
       });
 
@@ -92,7 +152,9 @@ function Page2() {
   async function getHourlyWeatherForecast(cityValue) {
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityValue}&appid=${apikey}&units=${isMetricUnit ? 'metric' : 'imperial'}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityValue}&appid=${apikey}&units=${
+          isMetricUnit ? "metric" : "imperial"
+        }`
       );
 
       if (!response.ok) {
@@ -112,12 +174,32 @@ function Page2() {
         const forecastIcon = forecastItem.weather[0].icon;
         const forecastHour = forecastDate.getHours();
 
-        const forecastElement = createElement('div', { className: 'forecast-item' }, [
-          createElement('div', { className: 'forecast-hour', textContent: `${forecastHour}:00` }),
-          createElement('div', { className: 'forecast-icon', innerHTML: `<img src="http://openweathermap.org/img/wn/${forecastIcon}.png" alt="Forecast Icon">` }),
-          createElement('div', { className: 'forecast-temperature', textContent: `${forecastTemperature}${isMetricUnit ? '°C' : '°F'}` }),
-          createElement('div', { className: 'forecast-description', textContent: forecastDescription }),
-        ]);
+        const forecastElement = createElement(
+          "div",
+          {
+            className: "forecast-item",
+          },
+          [
+            createElement("div", {
+              className: "forecast-hour",
+              textContent: `${forecastHour}:00`,
+            }),
+            createElement("div", {
+              className: "forecast-icon",
+              innerHTML: `<img src="http://openweathermap.org/img/wn/${forecastIcon}.png" alt="Forecast Icon">`,
+            }),
+            createElement("div", {
+              className: "forecast-temperature",
+              textContent: `${forecastTemperature}${
+                isMetricUnit ? "°C" : "°F"
+              }`,
+            }),
+            createElement("div", {
+              className: "forecast-description",
+              textContent: forecastDescription,
+            }),
+          ]
+        );
 
         forecastContainer.appendChild(forecastElement);
       });
@@ -127,11 +209,26 @@ function Page2() {
   }
 
   // Favorites Section
-  const favoritesContainer = createElement('div', { className: 'favorites-container' }, [
-    createElement('button', { id: 'add-to-favorites', textContent: 'Add to Favorites' }),
-    createElement('button', { id: 'show-favorites', textContent: 'Show Favorites' }),
-    createElement('button', { id: 'clear-favorites', textContent: 'Clear Favorites' }),
-  ]);
+  const favoritesContainer = createElement(
+    "div",
+    {
+      className: "favorites-container",
+    },
+    [
+      createElement("button", {
+        id: "add-to-favorites",
+        textContent: "Add to Favorites",
+      }),
+      createElement("button", {
+        id: "show-favorites",
+        textContent: "Show Favorites",
+      }),
+      createElement("button", {
+        id: "clear-favorites",
+        textContent: "Clear Favorites",
+      }),
+    ]
+  );
 
   container.appendChild(favoritesContainer);
 
@@ -139,7 +236,7 @@ function Page2() {
   const showFavoritesButton = document.getElementById("show-favorites");
   const clearFavoritesButton = document.getElementById("clear-favorites");
 
-  showFavoritesButton.addEventListener('click', () => {
+  showFavoritesButton.addEventListener("click", () => {
     if (!isFavoritesShown) {
       displayFavorites();
     } else {
@@ -156,92 +253,93 @@ function Page2() {
   }
 
   function saveFavoritesToStorage() {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    localStorage.setItem("favorites", JSON.stringify(favorites));
   }
 
   function displayFavorites() {
     favoritesListEl.innerHTML = ""; // Clear previous favorites
 
     favorites.forEach((favorite) => {
-      const favoriteItem = createElement('div', {
-        className: 'favorite-item',
+      const favoriteItem = createElement("div", {
+        className: "favorite-item",
         textContent: favorite,
       });
 
-      favoriteItem.addEventListener('click', () => {
+      favoriteItem.addEventListener("click", () => {
         cityInputEl.value = favorite; // Populate the input field with the favorite city
         getWeatherData(favorite); // Fetch weather data for the favorite city
 
         // Add active class to the clicked favorite item
-        const favoriteItems = favoritesListEl.getElementsByClassName('favorite-item');
+        const favoriteItems =
+          favoritesListEl.getElementsByClassName("favorite-item");
         Array.from(favoriteItems).forEach((item) => {
-          item.classList.remove('active');
+          item.classList.remove("active");
         });
-        favoriteItem.classList.add('active');
+        favoriteItem.classList.add("active");
       });
 
       favoritesListEl.appendChild(favoriteItem);
     });
   }
 
-  clearFavoritesButton.addEventListener('click', () => {
+  clearFavoritesButton.addEventListener("click", () => {
     favorites = [];
     saveFavoritesToStorage();
     favoritesEl.innerHTML = ""; // Clear favorites
   });
 
-
   // Temperature Toggle
- const toggleInput = container.querySelector('#toggle-input');
-toggleInput.addEventListener('change', () => {
-  isMetricUnit = !toggleInput.checked;
-  const temperatureElements = document.querySelectorAll('.temperature');
-  const currentUnit = isMetricUnit ? '°C' : '°F';
+  const toggleInput = container.querySelector("#toggle-input");
+  toggleInput.addEventListener("change", () => {
+    isMetricUnit = !toggleInput.checked;
+    const temperatureElements = document.querySelectorAll(".temperature");
+    const currentUnit = isMetricUnit ? "°C" : "°F";
 
-  temperatureElements.forEach((element) => {
-    const temperature = parseInt(element.textContent, 10);
-    const convertedTemperature = isMetricUnit ? celsiusToFahrenheit(temperature) : fahrenheitToCelsius(temperature);
-    element.textContent = `${convertedTemperature}${currentUnit}`;
+    temperatureElements.forEach((element) => {
+      const temperature = parseInt(element.textContent, 10);
+      const convertedTemperature = isMetricUnit
+        ? celsiusToFahrenheit(temperature)
+        : fahrenheitToCelsius(temperature);
+      element.textContent = `${convertedTemperature}${currentUnit}`;
+    });
+
+    const cityValue = cityInputEl.value;
+    if (cityValue) {
+      getWeatherData(cityValue);
+      getHourlyWeatherForecast(cityValue);
+    }
   });
 
-  const cityValue = cityInputEl.value;
-  if (cityValue) {
-    getWeatherData(cityValue);
-    getHourlyWeatherForecast(cityValue);
+  function celsiusToFahrenheit(celsius) {
+    return Math.round((celsius * 9) / 5 + 32);
   }
-});
 
-function celsiusToFahrenheit(celsius) {
-  return Math.round((celsius * 9) / 5 + 32);
-}
-
-function fahrenheitToCelsius(fahrenheit) {
-  return Math.round(((fahrenheit - 32) * 5) / 9);
-}
-
+  function fahrenheitToCelsius(fahrenheit) {
+    return Math.round(((fahrenheit - 32) * 5) / 9);
+  }
 
   // Dark mode toggle
-  const darkModeToggle = createElement('button', {
-    className: 'toggle',
+  const darkModeToggle = createElement("button", {
+    className: "toggle",
   });
 
-  let isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+  let isDarkMode = localStorage.getItem("isDarkMode") === "true";
 
   function setDarkMode(state) {
     isDarkMode = state;
 
     if (isDarkMode) {
-      document.body.classList.add('dark-mode');
-      darkModeToggle.textContent = 'Light Mode';
+      document.body.classList.add("dark-mode");
+      darkModeToggle.textContent = "Light Mode";
     } else {
-      document.body.classList.remove('dark-mode');
-      darkModeToggle.textContent = 'Dark Mode';
+      document.body.classList.remove("dark-mode");
+      darkModeToggle.textContent = "Dark Mode";
     }
 
-    localStorage.setItem('isDarkMode', isDarkMode.toString());
+    localStorage.setItem("isDarkMode", isDarkMode.toString());
   }
 
-  darkModeToggle.addEventListener('click', () => {
+  darkModeToggle.addEventListener("click", () => {
     setDarkMode(!isDarkMode);
   });
 
@@ -249,10 +347,13 @@ function fahrenheitToCelsius(fahrenheit) {
 
   container.appendChild(darkModeToggle);
 
-  const Contain = createElement('div', { className: 'contain' }, [
-    container,
-    darkModeToggle,
-  ]);
+  const Contain = createElement(
+    "div",
+    {
+      className: "contain",
+    },
+    [container, darkModeToggle]
+  );
 
   return Contain;
 }

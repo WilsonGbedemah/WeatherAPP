@@ -1,4 +1,6 @@
-import { createElement } from './utils';
+import {
+  createElement
+} from './utils';
 
 import Page1 from './home';
 import Page2 from './weather';
@@ -27,7 +29,9 @@ export function initRouter(mainView) {
         break;
 
       default:
-        updateView(createElement('h3', { textContent: '404 Page Not Found' }));
+        updateView(createElement('h3', {
+          textContent: '404 Page Not Found'
+        }));
         break;
     }
   }
