@@ -1,46 +1,92 @@
-import { createElement } from './utils';
-import { initRouter } from './router';
+import {
+  createElement
+} from './utils';
+import {
+  initRouter
+} from './router';
 
-
-function Header(mainDiv) {
-  //create logo element
+function Header() {
   const logoImg = createElement('img', {
-    src: 'src/images/logo.png',
+    src: require('./images/logo.png'),
     alt: 'WeatherNow logo',
     className: 'logo',
   });
-
 
   const appTitle = createElement('h1', {
     textContent: 'WeatherNOW',
     className: 'heading',
   });
 
-  // nav items
-  const page1 = createElement('a', {
-    href: '/#/page1',
-    textContent: 'Page 1',
-  });
-  const page2 = createElement('a', {
-    href: '/#/page2',
-    textContent: 'Page 2',
-  });
-  const page3 = createElement('a', {
-    href: '/#/page3',
-    textContent: 'Page 3',
-  });
-  
-  
+  const header = createElement('header', {}, [logoImg, appTitle]);
 
-  const nav = createElement('nav', {}, [page1, page2, page3]);
+  const container = createElement('div', {
+    className: 'header-container'
+  }, [header]);
 
-  return createElement('header', {}, [logoImg, appTitle, nav]);
+  return container;
 }
 
+function Navigation() {
+  const page1Icon = createElement('div', {
+    className: 'nav-item',
+    onclick: () => {
+      window.location.href = '/#/page1';
+    }
+  }, [
+    createElement('img', {
+      src: require('./images/home.png'),
+      alt: 'Page 1 Icon',
+      className: 'nav-icon',
+    }),
+    createElement('span', {
+      textContent: 'Home'
+    }),
+  ]);
+
+  const page2Icon = createElement('div', {
+    className: 'nav-item',
+    onclick: () => {
+      window.location.href = '/#/page2';
+    }
+  }, [
+    createElement('img', {
+      src: require('./images/weather-icon.png'),
+      alt: 'Page 2 Icon',
+      className: 'nav-icon',
+    }),
+    createElement('span', {
+      textContent: 'Weather'
+    }),
+  ]);
+
+  const page3Icon = createElement('div', {
+    className: 'nav-item',
+    onclick: () => {
+      window.location.href = '/#/page3';
+    }
+  }, [
+    createElement('img', {
+      src: require('./images/contact.png'),
+      alt: 'Page 3 Icon',
+      className: 'nav-icon',
+    }),
+    createElement('span', {
+      textContent: 'Contact Us'
+    }),
+  ]);
+
+  const nav = createElement('nav', {
+    className: 'navigation'
+  }, [page1Icon, page2Icon, page3Icon]);
+
+  return nav;
+}
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   const copyright = createElement('span', {
-    textContent: `Copyright © ${new Date().getFullYear()} | WeatherNOW` ,
+    textContent: `© ${currentYear} | WeatherNOW`,
   });
 
   return createElement('footer', {}, [copyright]);
@@ -51,7 +97,17 @@ function App() {
 
   initRouter(main);
 
-  return createElement('div', {}, [Header(main), main, Footer()]);
+  const header = Header();
+  const navigation = Navigation();
+  const footer = Footer();
+
+  const appContainer = createElement('div', {
+    className: 'app-container'
+  }, [header, main, navigation]);
+
+  const appRoot = createElement('div', {}, [appContainer, footer]);
+
+  return appRoot;
 }
 
 export default App;

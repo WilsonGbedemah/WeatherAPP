@@ -1,13 +1,17 @@
-import { createElement } from './utils';
+import {
+  createElement
+} from './utils';
 
-import Page1 from './Page1';
-import Counter from './Counter';
-import Page3 from './Page3';
+import Page1 from './home';
+import Page2 from './weather';
+import Page3 from './info';
 
 export function initRouter(mainView) {
   function updateView(newView) {
     mainView.innerHTML = '';
-    mainView.appendChild(newView);
+    if (newView instanceof Node) { // Check if newView is a valid DOM element
+      mainView.appendChild(newView);
+    }
   }
 
   function hashToRoute(hash) {
@@ -17,7 +21,7 @@ export function initRouter(mainView) {
         break;
 
       case '#/page2':
-        updateView(Counter());
+        updateView(Page2());
         break;
 
       case '#/page3':
@@ -25,7 +29,9 @@ export function initRouter(mainView) {
         break;
 
       default:
-        updateView(createElement('h3', { textContent: '404 Page Not Found' }));
+        updateView(createElement('h3', {
+          textContent: '404 Page Not Found'
+        }));
         break;
     }
   }
