@@ -4,7 +4,7 @@
   --font-body: Arvo, serif;
 
   /* colors */
-  --primary-color: #f1f1f1;
+  --primary-color: whitesmoke;
   --secondary-color: #007bff;
   --hover-color: #0062cc;
   --tertiary-color: #fff;
@@ -212,7 +212,7 @@ header {
 }
 .call a {
   text-transform: uppercase;
-  color: var(--tertiary-color);
+  color: var(--dark-grey);
   border: none;
   display: block;
   padding: 10px 20px;
@@ -223,6 +223,9 @@ header {
   font-family: var(--font-headline);
   text-decoration: none;
   animation: upAnddown 2s linear infinite;
+}
+.dark-mode .call a{
+  color: var(--tertiary-color);
 }
 
 .call a:hover {
