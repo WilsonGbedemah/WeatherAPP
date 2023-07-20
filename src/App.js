@@ -13,7 +13,7 @@ function Header() {
   });
 
   const appTitle = createElement('h1', {
-    textContent: 'WeatherNOW',
+    textContent: 'WeatherNINJA',
     className: 'heading',
   });
 
@@ -86,7 +86,7 @@ function Footer() {
   const currentYear = new Date().getFullYear();
 
   const copyright = createElement('span', {
-    textContent: `© ${currentYear} | WeatherNOW`,
+    textContent: `© ${currentYear} | WeatherNINJA`,
   });
 
   return createElement('footer', {}, [copyright]);
