@@ -542,19 +542,13 @@ footer {
 /**LARGE VIEWPORT STYLING**/
 @media only screen and (min-width: 64em) {
   body {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: auto;
   }
   /**Home Page Styling**/
   .icons {
     width: 50px;
     padding: 10px;
-  }
-  .chat-bubble img {
-    width: 50px;
-    position: absolute;
-    top: 205%;
-    right: 250px;
   }
   .content {
     max-width: 900px;
