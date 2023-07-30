@@ -1,4 +1,4 @@
-/**Homepage Stylings**/
+
 :root {
   --font-headline: Roboto, sans-serif;
   --font-body: Arvo, serif;
@@ -113,6 +113,7 @@ header {
     transform: translateX(0);
   }
 }
+
 .hero-image {
   width: 20%;
   position: relative;
